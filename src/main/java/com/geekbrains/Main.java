@@ -1,43 +1,45 @@
 package com.geekbrains;
 
 public class Main {
-    public static void printThreeWords(){
-        System.out.println("Orange");
-        System.out.println("Banana");
-        System.out.println("Apple");
-    }
-
-    public static void checkSumSign(){
-        int a = 1, b = 2;
-        int sum = a + b;
-        if(sum >= 0)
-            System.out.println("Сумма положительная");
-        else
-            System.out.println("Сумма отрицательная");
-    }
-
-    public static void printColor(){
-        int value = 1;
-        if(value <= 0)
-            System.out.println("Красный");
-        else if(value > 0 && value <= 100)
-            System.out.println("Желтый");
-        else
-            System.out.println("Зеленый");
-    }
-
-    public static void compareNumbers(){
-        int a = 1, b = 2;
-        if(a >= b)
-            System.out.println("a >= b");
-        else
-            System.out.println("a < b");
-    }
-
     public static void main(String[] args) {
-        printThreeWords();
-        checkSumSign();
-        printColor();
-        compareNumbers();
+        System.out.println(isLeapYear(100));
+        System.out.println(checkSum(10, 1));
+        checkPositive(2);
+        System.out.println(checkNegative(-1));
+        printString("Хочу видеть код Роберта Мартина - все его методы должны быть не больше трех строк кода", 3);
+    }
+
+    public static boolean checkSum(int number1, int number2) {
+        return (number1 + number2) <= 20 && (number1 + number2) > 10;
+    }
+
+    public static void checkPositive(int number) {
+        if (number >= 0)
+            System.out.println("Число положительное");
+        else
+            System.out.println("Число отрицательное");
+    }
+
+    public static boolean checkNegative(int number) {
+        return number < 0;
+    }
+
+    public static void printString(String someString, int count) {
+        for (int i = 0; i < count; i++) {
+            System.out.println(someString);
+        }
+    }
+
+    public static boolean isLeapYear(int year) {
+        if (year % 400 == 0) {
+            return true;
+        } else if (year % 4 == 0) {
+            if (year % 100 == 0) {
+                return false;
+            }
+            return true;
+        } else
+            return false;
+
     }
 }
