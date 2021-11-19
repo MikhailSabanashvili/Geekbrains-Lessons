@@ -82,7 +82,7 @@ public class Main {
 
         if (result)
             return true;
-
+        //суть этого проста - мы при следующем шаге рекурсии не должны выйти за пределы большого массива
         if (endI + 1 == SIZE) {
             beginI = 0;
             endI = beginI + DOTS_TO_WIN - 1;
