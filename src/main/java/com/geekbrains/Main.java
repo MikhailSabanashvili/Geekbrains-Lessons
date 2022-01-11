@@ -4,7 +4,7 @@ public class Main {
     public static void runObstacleCourse(Obstacle[] obstacles, Movable[] movables) {
         for (int i = 0; i < movables.length; i++) {
             for (int j = 0; j < obstacles.length; j++) {
-                if (obstacles[j].getClass().getName().equals("com.geekbrains.Track")) {
+                if (obstacles[j] instanceof Track) {
                     if (!movables[i].run((Track) obstacles[j])) break;
                 } else {
                     if (!movables[i].jump((Wall) obstacles[j])) break;
