@@ -1,9 +1,9 @@
-package com.geekbrains.person.customer;
+package task_from_teacher.person.customer;
 
-import com.geekbrains.market.Market;
-import com.geekbrains.person.Person;
-import com.geekbrains.person.seller.Seller;
-import com.geekbrains.product.Product;
+import task_from_teacher.market.Market;
+import task_from_teacher.person.Person;
+import task_from_teacher.person.seller.Seller;
+import task_from_teacher.product.Product;
 
 import java.util.ArrayList;
 import java.util.List;

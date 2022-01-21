@@ -1,4 +1,4 @@
-package com.geekbrains.product;
+package task_from_teacher.product;
 
 public class Product {
     private String name;

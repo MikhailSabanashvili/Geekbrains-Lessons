@@ -1,4 +1,4 @@
-package com.geekbrains.person;
+package task_from_teacher.person;
 
 public abstract class Person {
     private long cash;
