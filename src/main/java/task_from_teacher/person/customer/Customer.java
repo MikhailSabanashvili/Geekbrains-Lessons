@@ -7,6 +7,8 @@ import task_from_teacher.product.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 
 public class Customer extends Person {
     private List<Product> expectedPurchaseList;
@@ -35,6 +37,14 @@ public class Customer extends Person {
                 }
             }
         }
+    }
+
+    //использовать его мы, конечно же, не будем
+    public Seller findSeller(String name, String lastName) {
+        Optional<Seller> s = new Market().getSellers()
+                .stream().filter(seller -> seller.getName().equals(name) && seller.getLastName().equals(lastName)).findFirst();
+
+        return s.orElseThrow();
     }
 
     public void info() {
