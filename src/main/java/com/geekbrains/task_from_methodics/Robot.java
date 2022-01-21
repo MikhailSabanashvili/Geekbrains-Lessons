@@ -1,10 +1,10 @@
-package com.geekbrains;
+package com.geekbrains.task_from_methodics;
 
-public class Human implements Movable {
+public class Robot implements Movable {
     private int jumpAbility;
     private int runAbility;
 
-    public Human(int jumpAbility, int runAbility) {
+    public Robot(int jumpAbility, int runAbility) {
         this.jumpAbility = jumpAbility;
         this.runAbility = runAbility;
     }

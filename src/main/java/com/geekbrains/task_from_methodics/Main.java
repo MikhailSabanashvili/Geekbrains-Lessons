@@ -1,4 +1,4 @@
-package com.geekbrains;
+package com.geekbrains.task_from_methodics;
 
 public class Main {
     public static void runObstacleCourse(Obstacle[] obstacles, Movable[] movables) {

@@ -1,4 +1,4 @@
-package com.geekbrains;
+package com.geekbrains.task_from_methodics;
 
 public abstract class Obstacle {
     protected int length;

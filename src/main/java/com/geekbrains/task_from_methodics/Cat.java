@@ -1,4 +1,4 @@
-package com.geekbrains;
+package com.geekbrains.task_from_methodics;
 
 public class Cat implements Movable {
     private int jumpAbility;
