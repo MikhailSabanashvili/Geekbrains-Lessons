@@ -39,12 +39,15 @@ public class Customer extends Person {
         }
     }
 
-    //использовать его мы, конечно же, не будем
-    public Seller findSeller(String name, String lastName) {
-        Optional<Seller> s = new Market().getSellers()
+    public void findProductOnSeller(String name, String lastName, Market market) {
+        Optional<Seller> s = market.getSellers()
                 .stream().filter(seller -> seller.getName().equals(name) && seller.getLastName().equals(lastName)).findFirst();
 
-        return s.orElseThrow();
+        if(s.isEmpty()) {
+            throw new NoSuchElementException("Seller not found");
+        }
+
+        getExpectedPurchaseList().forEach(x -> s.get().sellProducts(this, x));
     }
 
     public void info() {

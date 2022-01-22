@@ -25,7 +25,11 @@ public class Main {
         market.addSeller(secondSeller);
 
         Customer customer = createFirstCustomer();
-        customer.findProductOnMarket(market);
+        //customer.findProductOnMarket(market);
+        //ищем продавца и покупаем у него всё что можем
+        customer.findProductOnSeller("Виталий", "Еремин", market);
+        customer.findProductOnSeller("Алексей", "Ушаков", market);
+        //customer.findProductOnSeller("Какой то", "Левый чел", market); //проверка выбросится ли исключение
         customer.info();
     }
 
