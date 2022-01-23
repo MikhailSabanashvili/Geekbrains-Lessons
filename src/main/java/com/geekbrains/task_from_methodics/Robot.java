@@ -12,7 +12,7 @@ public class Robot implements Movable {
     @Override
     public boolean run(Track track) {
         if(runAbility >= track.getLength()) {
-            System.out.println("Человек пробежал " + track.getLength() + " метров");
+            System.out.println("Робот пробежал " + track.getLength() + " метров");
             return true;
         }
         return false;
@@ -21,7 +21,7 @@ public class Robot implements Movable {
     @Override
     public boolean jump(Wall wall) {
         if(jumpAbility >= wall.getLength()) {
-            System.out.println("Человек прыгнул " + wall.getLength() + " метров");
+            System.out.println("Робот прыгнул " + wall.getLength() + " метров");
             return true;
         }
         return false;
