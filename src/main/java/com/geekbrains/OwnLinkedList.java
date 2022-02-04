@@ -45,6 +45,32 @@ public class OwnLinkedList<T> {
         }
     }
 
+    public void deleteNode(int index) {
+        if (index > size) {
+            System.out.println("Размер списка меньше чем заданный индекс");
+            return;
+        }
+
+        Node current = head;
+        if(index == 0) {
+            head = null;
+            head = current.next;
+            size--;
+            return;
+        }
+
+        for (int i = 1; i <= index - 2; i++) {
+            current = current.next;
+        }
+
+        if(current.next.next == tail) {
+            tail = current;
+        } else {
+            current.next = current.next.next;
+            size--;
+        }
+    }
+
     public void addNode(T data) {
         Node newNode = new Node(data);
 
