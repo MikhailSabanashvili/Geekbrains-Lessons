@@ -64,7 +64,9 @@ public class OwnLinkedList<T> {
         }
 
         if(current.next.next == tail) {
-            tail = current;
+            tail = current.next;
+            tail.next = null;
+            size--;
         } else {
             current.next = current.next.next;
             size--;

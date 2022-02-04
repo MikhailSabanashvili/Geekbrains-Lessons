@@ -10,7 +10,7 @@ public class OwnLinkedListMain {
         integerOwnLinkedList.addNode(222);
         integerOwnLinkedList.addNode(345);
         //integerOwnLinkedList.addNode(0, 70);
-        integerOwnLinkedList.deleteNode(1);
+        integerOwnLinkedList.deleteNode(5);
 
         integerOwnLinkedList.display();
 //        integerOwnLinkedList.display(0);
