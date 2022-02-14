@@ -55,7 +55,7 @@ public class EchoClient {
                         String text = scanner.next();
                         if(!isExit)
                             break;
-                        sendMessage(text);
+                        sendMessage(text + "\r");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();

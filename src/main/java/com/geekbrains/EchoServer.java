@@ -17,22 +17,21 @@ public class EchoServer {
             System.out.println("Клиент подключился");
             DataInputStream in = new DataInputStream(socket.getInputStream());
             DataOutputStream out = new DataOutputStream(socket.getOutputStream());
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {
                     try {
-                        while (isExit) {
+                        while(isExit) {
                             String messageFromClient = in.readUTF();
-                            //я не очень понимаю, как должен реагировать сервер на отключение клиента. И на какой стороне нужно отключать клиента?
-                            if(messageFromClient.equals("/end")) {
+                            System.out.println(messageFromClient);
+                            if (messageFromClient.equals("/end")) {
                                 isExit = false;
                                 out.writeUTF("/end");
                                 break;
                             }
-                            System.out.println(messageFromClient);
                         }
-                        in.close();
+                            //я не очень понимаю, как должен реагировать сервер на отключение клиента. И на какой стороне нужно отключать клиента?
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
