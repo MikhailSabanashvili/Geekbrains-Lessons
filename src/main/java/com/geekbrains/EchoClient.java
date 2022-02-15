@@ -52,7 +52,7 @@ public class EchoClient {
                 try {
                     while (isExit) {
                         Scanner scanner = new Scanner(System.in);
-                        String text = scanner.next();
+                        String text = scanner.nextLine();
                         if(!isExit)
                             break;
                         sendMessage(text + "\r");
