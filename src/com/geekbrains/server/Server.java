@@ -16,10 +16,8 @@ public class Server {
     private List<ClientHandler> connectedUsers;
 
     public Server() {
-        //положили в бд юзеров(типа они уже авторизованы)
         authService = new InMemoryAuthServiceImpl();
         try (ServerSocket server = new ServerSocket(CommonConstants.SERVER_PORT)) {
-            //просто вывели сообщение что сервис отработал
             authService.start();
             connectedUsers = new ArrayList<>();
             while (true) {

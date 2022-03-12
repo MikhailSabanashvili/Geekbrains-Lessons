@@ -17,7 +17,6 @@ public class MainClient extends Application {
         stage.setTitle("Чат");
         stage.setScene(new Scene(root, 400, 400));
         stage.show();
-        //предыдущий блок кода относится к javafx
         ChatController chatController = loader.getController();
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override

@@ -27,10 +27,9 @@ public class Network {
                     while (true) {
                         String messageFromServer = inputStream.readUTF();
                         System.out.println(messageFromServer);
-                        if (messageFromServer.contains("/enter")) {
+                        if (messageFromServer.contains("зашел в чат")) {
                             String[] client = messageFromServer.split(" ");
-                            controller.displayClient(client[1]);
-                            controller.displayMessage( "Пользователь " + client[1] + " зашел в чат");
+                            controller.displayClient(client[0]);
                         } else if (messageFromServer.startsWith(ServerCommandConstants.EXIT)) {
                             String[] client = messageFromServer.split(" ");
                             controller.removeClient(client[1]);

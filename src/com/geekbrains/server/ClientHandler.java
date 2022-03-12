@@ -49,7 +49,7 @@ public class ClientHandler {
                     if (!server.isNickNameBusy(nickName)) {
                         sendAuthenticationMessage(true);
                         this.nickName = nickName;
-                        server.broadcastMessage("/enter " + nickName);
+                        server.broadcastMessage(nickName + " зашел в чат");
                         sendMessage(server.getClients());
                         server.addConnectedUser(this);
                         return;
