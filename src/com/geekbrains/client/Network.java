@@ -84,6 +84,25 @@ public class Network {
         return false;
     }
 
+    public boolean sendAuthorization(String login, String password, String nickName) {
+        try {
+            if (socket == null || socket.isClosed()) {
+                initializeNetwork();
+            }
+            outputStream.writeUTF(ServerCommandConstants.AUTHORIZATION + " " + login + " " + password + " " + nickName);
+
+            boolean authorized = inputStream.readBoolean();
+            if (authorized) {
+                startReadServerMessages();
+            }
+            return authorized;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public void closeConnection() {
         try {
             outputStream.writeUTF(ServerCommandConstants.EXIT);

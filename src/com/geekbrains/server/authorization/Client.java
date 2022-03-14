@@ -1,11 +1,11 @@
 package com.geekbrains.server.authorization;
 
-public class UserData {
+public class Client {
     private final String login;
     private final String password;
     private final String nickName;
 
-    public UserData(String login, String password, String nickName) {
+    public Client(String login, String password, String nickName) {
         this.login = login;
         this.password = password;
         this.nickName = nickName;

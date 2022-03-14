@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.sql.SQLException;
+import java.util.NoSuchElementException;
 
 public class ClientHandler {
     private final Server server;
@@ -29,8 +31,21 @@ public class ClientHandler {
                     try {
                         authentication();
                         readMessages();
-                    } catch (IOException exception) {
+                    } catch (IOException | NoSuchElementException | SQLException exception) {
                         exception.printStackTrace();
+                        if(exception instanceof NoSuchElementException) {
+                            try {
+                                authorization();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            } finally {
+                                try {
+                                    readMessages();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
                     }
                 }
             }).start();
@@ -39,7 +54,48 @@ public class ClientHandler {
         }
     }
 
-    public void authentication() throws IOException {
+    //TODO: убрать лишний код
+    //TODO: после авторизации кидает на аутентификацию. Почему? Продебажить
+    private void authorization() throws IOException {
+        outputStream.writeBoolean(false); //возврат ложной аутентификации
+        while(true) {
+            String message = inputStream.readUTF();
+            if (message.startsWith(ServerCommandConstants.AUTHORIZATION)) {
+                String[] authorizationInfo = message.split(" ");
+                String login = authorizationInfo[1];
+                String password = authorizationInfo[2];
+                String nickName = authorizationInfo[3];
+                if (nickName != null && login != null && password != null) {
+                    try {
+                        if (!server.isNickNameBusy(nickName) || !server.isLoginBusy(login)) {
+                            //если такого пользака нет, то создать - внести в базу
+                            server.addClient(login, password, nickName);
+                            sendAuthorizationMessage(true);
+                            //TODO: пользака я добавил в базу но зайти не смог
+                            this.nickName = nickName;
+                            server.broadcastMessage(nickName + " зашел в чат");
+                            sendMessage(server.getClients());
+                            server.addConnectedUser(this);
+                            return;
+                        } else {
+                            sendAuthorizationMessage(false); //посмотреть что в этом случае происходит на клиенте
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        sendAuthorizationMessage(false);
+                    }
+                } else {
+                    sendAuthorizationMessage(false);
+                }
+            }
+        }
+    }
+
+    private void sendAuthorizationMessage(boolean authorized) throws IOException {
+        outputStream.writeBoolean(authorized);
+    }
+
+    public void authentication() throws IOException, SQLException {
         while (true) {
             String message = inputStream.readUTF();
             if (message.startsWith(ServerCommandConstants.AUTHENTICATION)) {

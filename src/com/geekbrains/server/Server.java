@@ -2,11 +2,12 @@ package com.geekbrains.server;
 
 import com.geekbrains.CommonConstants;
 import com.geekbrains.server.authorization.AuthService;
-import com.geekbrains.server.authorization.InMemoryAuthServiceImpl;
+import com.geekbrains.server.authorization.AuthServiceImpl;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,7 @@ public class Server {
     private List<ClientHandler> connectedUsers;
 
     public Server() {
-        authService = new InMemoryAuthServiceImpl();
+        authService = new AuthServiceImpl();
         try (ServerSocket server = new ServerSocket(CommonConstants.SERVER_PORT)) {
             authService.start();
             connectedUsers = new ArrayList<>();
@@ -71,5 +72,13 @@ public class Server {
         }
 
         return builder.toString();
+    }
+
+    public boolean isLoginBusy(String login) throws SQLException {
+        return authService.loginIsBusy(login);
+    }
+
+    public void addClient(String login, String password, String nickName) throws SQLException {
+        authService.addClient(login, password, nickName);
     }
 }

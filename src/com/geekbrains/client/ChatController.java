@@ -14,30 +14,56 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class ChatController implements Initializable {
-    @FXML
-    private TextArea textArea;
-    @FXML
-    private TextField messageField, loginField;
-    @FXML
-    private HBox messagePanel, authPanel;
-    @FXML
-    private PasswordField passwordField;
-    @FXML
-    private ListView<String> clientList;
-
+    public HBox authPanel;
+    public HBox authorizationPanel;
     private final Network network;
+    public TextArea textArea;
+    public ListView<String> clientList;
+    public HBox messagePanel;
+    public TextField messageField;
+    public TextField loginFieldAuth;
+    public PasswordField passwordFieldAuth;
+    public TextField loginFieldAuthorization;
+    public PasswordField passwordFieldAuthorization;
+    public TextField nickNameFieldAuthorization;
 
     public ChatController() {
         this.network = new Network(this);
     }
 
     public void setAuthenticated(boolean authenticated) {
+        authorizationPanel.setVisible(false);
+        authorizationPanel.setManaged(false);
+
         authPanel.setVisible(!authenticated);
         authPanel.setManaged(!authenticated);
         messagePanel.setVisible(authenticated);
         messagePanel.setManaged(authenticated);
         clientList.setVisible(authenticated);
         clientList.setManaged(authenticated);
+    }
+
+    public void setAuthorization(boolean authorization) {
+        if(!authorization) {
+            authPanel.setVisible(false);
+            authPanel.setManaged(false);
+            authorizationPanel.setVisible(true);
+            authorizationPanel.setManaged(true);
+            messagePanel.setVisible(false);
+            messagePanel.setManaged(false);
+            clientList.setVisible(false);
+            clientList.setManaged(false);
+        } else {
+            authPanel.setVisible(false);
+            authPanel.setManaged(false);
+            authorizationPanel.setVisible(false);
+            authorizationPanel.setManaged(false);
+            messagePanel.setVisible(true);
+            messagePanel.setManaged(true);
+            clientList.setVisible(true);
+            clientList.setManaged(true);
+        }
+
     }
 
     @Override
@@ -73,11 +99,24 @@ public class ChatController implements Initializable {
 
 
     public void sendAuth(ActionEvent event) {
-        boolean authenticated = network.sendAuth(loginField.getText(), passwordField.getText());
+        boolean authenticated = network.sendAuth(loginFieldAuth.getText(), passwordFieldAuth.getText());
+        loginFieldAuth.clear();
+        passwordFieldAuth.clear();
         if(authenticated) {
-            loginField.clear();
-            passwordField.clear();
             setAuthenticated(true);
+        }
+        else {
+            setAuthorization(false);
+        }
+    }
+
+    public void sendAuthorization(ActionEvent actionEvent) {
+        boolean authorized = network
+                .sendAuthorization(loginFieldAuthorization.getText(), passwordFieldAuthorization.getText(), nickNameFieldAuthorization.getText());
+        loginFieldAuthorization.clear();
+        passwordFieldAuthorization.clear();
+        if(authorized) {
+            setAuthorization(true);
         }
     }
 
@@ -89,4 +128,5 @@ public class ChatController implements Initializable {
     public void close() {
         network.closeConnection();
     }
+
 }

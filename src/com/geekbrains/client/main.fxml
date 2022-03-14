@@ -9,11 +9,19 @@
 
 <?import javafx.scene.control.ListView?>
 <VBox fx:controller="com.geekbrains.client.ChatController" xmlns:fx="http://javafx.com/fxml" alignment="center">
+    <HBox fx:id="authorizationPanel">
+        <TextField HBox.hgrow="ALWAYS" fx:id="loginFieldAuthorization" promptText="Логин"/>
+        <PasswordField HBox.hgrow="ALWAYS" fx:id="passwordFieldAuthorization" promptText="Пароль" onAction="#sendAuthorization"/>
+        <TextField HBox.hgrow="ALWAYS" fx:id="nickNameFieldAuthorization" promptText="Никнэйм"/>
+        <Button HBox.hgrow="ALWAYS" text="Авторизоваться" onAction="#sendAuthorization"/>
+    </HBox>
+
     <HBox fx:id="authPanel">
-        <TextField HBox.hgrow="ALWAYS" fx:id="loginField" promptText="Логин"/>
-        <PasswordField HBox.hgrow="ALWAYS" fx:id="passwordField" promptText="Пароль" onAction="#sendAuth"/>
+        <TextField HBox.hgrow="ALWAYS" fx:id="loginFieldAuth" promptText="Логин"/>
+        <PasswordField HBox.hgrow="ALWAYS" fx:id="passwordFieldAuth" promptText="Пароль" onAction="#sendAuth"/>
         <Button HBox.hgrow="ALWAYS" text="Подключиться" onAction="#sendAuth"/>
     </HBox>
+
 
     <HBox VBox.vgrow="ALWAYS">
         <TextArea HBox.hgrow="ALWAYS" fx:id="textArea" editable="false"/>
