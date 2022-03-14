@@ -55,7 +55,6 @@ public class ClientHandler {
     }
 
     //TODO: убрать лишний код
-    //TODO: после авторизации кидает на аутентификацию. Почему? Продебажить
     private void authorization() throws IOException {
         outputStream.writeBoolean(false); //возврат ложной аутентификации
         while(true) {
@@ -71,7 +70,6 @@ public class ClientHandler {
                             //если такого пользака нет, то создать - внести в базу
                             server.addClient(login, password, nickName);
                             sendAuthorizationMessage(true);
-                            //TODO: пользака я добавил в базу но зайти не смог
                             this.nickName = nickName;
                             server.broadcastMessage(nickName + " зашел в чат");
                             sendMessage(server.getClients());
