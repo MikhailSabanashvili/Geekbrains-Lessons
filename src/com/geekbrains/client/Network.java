@@ -2,21 +2,26 @@ package com.geekbrains.client;
 
 import com.geekbrains.CommonConstants;
 import com.geekbrains.server.ServerCommandConstants;
+import com.geekbrains.server.authorization.Client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.LinkedList;
 
 public class Network {
     private Socket socket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
+    private MessageHistory messageHistory;
 
     private final ChatController controller;
 
     public Network(ChatController chatController) {
         this.controller = chatController;
+        this.messageHistory = new MessageHistory(new LinkedList<>());
     }
 
     private void startReadServerMessages() throws IOException {
@@ -33,14 +38,14 @@ public class Network {
                         } else if (messageFromServer.startsWith(ServerCommandConstants.EXIT)) {
                             String[] client = messageFromServer.split(" ");
                             controller.removeClient(client[1]);
-                            controller.displayMessage(client[1] + " покинул чат");
+                            controller.displayMessage(client[1] + " покинул чат", false);
                         } else if (messageFromServer.startsWith(ServerCommandConstants.CLIENTS)) {
                             String[] client = messageFromServer.split(" ");
                             for (int i = 1; i < client.length; i++) {
                                 controller.displayClient(client[i]);
                             }
                         } else {
-                            controller.displayMessage(messageFromServer);
+                            controller.displayMessage(messageFromServer, false);
                         }
                     }
                 } catch (IOException exception) {

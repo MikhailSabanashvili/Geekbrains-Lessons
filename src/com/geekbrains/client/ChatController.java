@@ -10,7 +10,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 
+import java.io.*;
 import java.net.URL;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 public class ChatController implements Initializable {
@@ -27,8 +30,22 @@ public class ChatController implements Initializable {
     public PasswordField passwordFieldAuthorization;
     public TextField nickNameFieldAuthorization;
 
+    private MessageHistory messageHistory;
+
     public ChatController() {
         this.network = new Network(this);
+        try {
+            if(new File("save.txt").exists()) {
+                FileInputStream fileInputStream = new FileInputStream("save.txt");
+                ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+                messageHistory = (MessageHistory) objectInputStream.readObject();
+                objectInputStream.close();
+                fileInputStream.close();
+            } else
+                this.messageHistory = new MessageHistory(new LinkedList<>());
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setAuthenticated(boolean authenticated) {
@@ -41,6 +58,19 @@ public class ChatController implements Initializable {
         messagePanel.setManaged(authenticated);
         clientList.setVisible(authenticated);
         clientList.setManaged(authenticated);
+        if(authenticated) {
+            if(messageHistory.getMessages().size() >= 100) {
+                for (int i = messageHistory.getMessages().size() - 100; i < messageHistory.getMessages().size(); i++) {
+//                textArea.insertText(j, messageHistory.getMessage(i) + " \n");
+                    displayMessage(messageHistory.getMessage(i), true);
+                }
+            } else {
+                for (int i = 0; i < messageHistory.getMessages().size(); i++) {
+                    displayMessage(messageHistory.getMessage(i), true);
+                }
+            }
+
+        }
     }
 
     public void setAuthorization(boolean authorization) {
@@ -71,11 +101,14 @@ public class ChatController implements Initializable {
         setAuthenticated(false);
     }
 
-    public void displayMessage(String text) {
+    public void displayMessage(String text, boolean isRepit) {
         if (textArea.getText().isEmpty()) {
             textArea.setText(text);
+            messageHistory.addMessage(text);
         } else {
             textArea.setText(textArea.getText() + "\n" + text);
+            if(!isRepit)
+                messageHistory.addMessage(text);
         }
     }
 
@@ -126,6 +159,15 @@ public class ChatController implements Initializable {
     }
 
     public void close() {
+        try {
+            FileOutputStream outputStream = new FileOutputStream("save.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+            objectOutputStream.writeObject(messageHistory);
+            objectOutputStream.close();
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         network.closeConnection();
     }
 
