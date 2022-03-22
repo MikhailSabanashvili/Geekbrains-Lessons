@@ -10,6 +10,7 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Server {
     private final AuthService authService;
@@ -57,6 +58,13 @@ public class Server {
         }
     }
 
+    public synchronized void updateConnectedUser(String oldNickName, String newNickName) {
+        Optional<ClientHandler> clientHandler =
+                connectedUsers.stream().filter(x -> x.getNickName().equals(oldNickName)).findFirst();
+
+        clientHandler.ifPresent(handler -> handler.setNickName(newNickName));
+    }
+
     public synchronized void addConnectedUser(ClientHandler handler) {
         connectedUsers.add(handler);
     }
@@ -80,5 +88,9 @@ public class Server {
 
     public void addClient(String login, String password, String nickName) throws SQLException {
         authService.addClient(login, password, nickName);
+    }
+
+    public void changeNickName(String oldNickName, String newNickName) throws SQLException {
+        authService.updateNickName(oldNickName, newNickName);
     }
 }

@@ -8,4 +8,5 @@ public interface AuthService {
     boolean loginIsBusy(String login) throws SQLException;
     void end();
     void addClient(String login, String password, String nickName) throws SQLException;
+    void updateNickName(String oldNickName, String newNickName) throws SQLException;
 }

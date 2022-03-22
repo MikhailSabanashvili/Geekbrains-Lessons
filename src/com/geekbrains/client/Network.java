@@ -116,4 +116,11 @@ public class Network {
         System.exit(1);
     }
 
+    public void changeNickName(String oldNickName, String newNickName) {
+        try {
+            outputStream.writeUTF(ServerCommandConstants.CHANGE_NICKNAME + " " + oldNickName + " " + newNickName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

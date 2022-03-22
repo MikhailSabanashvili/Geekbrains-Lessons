@@ -31,5 +31,12 @@
     <HBox fx:id="messagePanel">
         <TextField fx:id="messageField" promptText="Введите сообщение" HBox.hgrow="ALWAYS" onAction="#sendMessage"/>
         <Button text="Отправить" onAction="#sendMessage"/>
+        <Button text="Сменить ник" onAction="#displayChangeNickPanel"/>
+    </HBox>
+
+    <HBox fx:id="changeNickNamePanel">
+        <TextField fx:id="oldNickName" promptText="Введите текущий ник" HBox.hgrow="ALWAYS" onAction="#changeNickName"/>
+        <TextField fx:id="newNickName" promptText="Введите новый ник" HBox.hgrow="ALWAYS" onAction="#changeNickName"/>
+        <Button text="Подтвердить" onAction="#changeNickName"/>
     </HBox>
 </VBox>

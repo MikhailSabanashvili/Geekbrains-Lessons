@@ -49,4 +49,9 @@ public class AuthServiceImpl implements AuthService {
         }
     }
 
+    @Override
+    public void updateNickName(String oldNickName, String newNickName) throws SQLException {
+        dbConnector.update(oldNickName, newNickName);
+    }
+
 }

@@ -29,6 +29,34 @@ public class DbConnector {
                     login, password, nickName));
     }
 
+    public void update(String oldNickName, String newNickName) throws SQLException {
+        if(isNickNameExist(oldNickName)) {
+            statement.executeUpdate(String.format("UPDATE client SET nickName = '%s' WHERE nickName = '%s'",
+                    newNickName, oldNickName));
+
+            return;
+        }
+
+        throw new RuntimeException("Ника " + oldNickName + " не существует");
+    }
+
+    public boolean isNickNameExist(String nickName) {
+        try(ResultSet resultSet = statement.executeQuery(String.format("Select nickName from client" +
+                        " where nickName = '%s';",
+                nickName))) {
+            if(resultSet.next()) {
+                if(resultSet.getString("nickName").equals(nickName)) {
+                    return true;
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public String select(String login, String password) throws NoSuchElementException {
         try(ResultSet resultSet = statement.executeQuery(String.format("Select nickName from client" +
                         " where login = '%s' and password = '%s';",

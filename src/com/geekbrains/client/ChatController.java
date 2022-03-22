@@ -26,12 +26,17 @@ public class ChatController implements Initializable {
     public TextField loginFieldAuthorization;
     public PasswordField passwordFieldAuthorization;
     public TextField nickNameFieldAuthorization;
+    public HBox changeNickNamePanel;
+    public TextField newNickName;
+    public TextField oldNickName;
 
     public ChatController() {
         this.network = new Network(this);
     }
 
     public void setAuthenticated(boolean authenticated) {
+        changeNickNamePanel.setVisible(false);
+        changeNickNamePanel.setManaged(false);
         authorizationPanel.setVisible(false);
         authorizationPanel.setManaged(false);
 
@@ -44,6 +49,8 @@ public class ChatController implements Initializable {
     }
 
     public void setAuthorization(boolean authorization) {
+        changeNickNamePanel.setVisible(false);
+        changeNickNamePanel.setManaged(false);
         if(!authorization) {
             authPanel.setVisible(false);
             authPanel.setManaged(false);
@@ -129,4 +136,25 @@ public class ChatController implements Initializable {
         network.closeConnection();
     }
 
+    public void displayChangeNickPanel(ActionEvent actionEvent) {
+        authorizationPanel.setVisible(false);
+        authorizationPanel.setManaged(false);
+
+        authPanel.setVisible(false);
+        authPanel.setManaged(false);
+        authorizationPanel.setVisible(false);
+        authorizationPanel.setManaged(false);
+        messagePanel.setVisible(false);
+        messagePanel.setManaged(false);
+        clientList.setVisible(false);
+        clientList.setManaged(false);
+
+        changeNickNamePanel.setVisible(true);
+        changeNickNamePanel.setManaged(true);
+    }
+
+    public void changeNickName(ActionEvent actionEvent) {
+        network.changeNickName(oldNickName.getText(), newNickName.getText());
+        setAuthenticated(true);
+    }
 }

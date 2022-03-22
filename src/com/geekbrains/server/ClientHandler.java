@@ -15,6 +15,10 @@ public class ClientHandler {
 
     private String nickName;
 
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
+    }
+
     public String getNickName() {
         return nickName;
     }
@@ -124,6 +128,11 @@ public class ClientHandler {
     private void readMessages() throws IOException {
         while (true) {
             String messageInChat = inputStream.readUTF();
+            if(messageInChat.startsWith(ServerCommandConstants.CHANGE_NICKNAME)) {
+                changeNickName(messageInChat.split(" ")[1], messageInChat.split(" ")[2]);
+                return;
+            }
+
             System.out.println("от " + nickName + ": " + messageInChat);
             if (messageInChat.equals(ServerCommandConstants.EXIT)) {
                 closeConnection();
@@ -132,6 +141,15 @@ public class ClientHandler {
 
             server.broadcastMessage(nickName + ": " + messageInChat);
         }
+    }
+
+    private void changeNickName(String oldNickName, String newNickName)  {
+        try {
+            server.changeNickName(oldNickName, newNickName);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        server.updateConnectedUser(oldNickName, newNickName);
     }
 
     public void sendMessage(String message) {
