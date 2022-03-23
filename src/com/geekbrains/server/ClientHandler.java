@@ -6,6 +6,9 @@ import java.io.IOException;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.NoSuchElementException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadPoolExecutor;
 
 public class ClientHandler {
     private final Server server;
@@ -25,32 +28,33 @@ public class ClientHandler {
             this.socket = socket;
             this.inputStream = new DataInputStream(socket.getInputStream());
             this.outputStream = new DataOutputStream(socket.getOutputStream());
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        authentication();
-                        readMessages();
-                    } catch (IOException | NoSuchElementException | SQLException exception) {
-                        exception.printStackTrace();
-                        if(exception instanceof NoSuchElementException) {
-                            try {
-                                authorization();
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            } finally {
-                                try {
-                                    readMessages();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            }
-                        }
-                    }
-                }
-            }).start();
+            ExecutorService service = Executors.newFixedThreadPool(4);
+            service.execute(this::clientWorker);
+
         } catch (IOException exception) {
             throw new RuntimeException("Проблемы при создании обработчика");
+        }
+    }
+
+    private void clientWorker() {
+        try {
+            authentication();
+            readMessages();
+        } catch (IOException | NoSuchElementException | SQLException exception) {
+            exception.printStackTrace();
+            if (exception instanceof NoSuchElementException) {
+                try {
+                    authorization();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    try {
+                        readMessages();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
     }
 
