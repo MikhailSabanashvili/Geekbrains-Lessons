@@ -9,6 +9,7 @@ import java.util.NoSuchElementException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class ClientHandler {
     private final Server server;
@@ -23,16 +24,25 @@ public class ClientHandler {
     }
 
     public ClientHandler(Server server, Socket socket) {
+        ExecutorService service = Executors.newFixedThreadPool(4);
         try {
             this.server = server;
             this.socket = socket;
             this.inputStream = new DataInputStream(socket.getInputStream());
             this.outputStream = new DataOutputStream(socket.getOutputStream());
-            ExecutorService service = Executors.newFixedThreadPool(4);
             service.execute(this::clientWorker);
 
         } catch (IOException exception) {
             throw new RuntimeException("Проблемы при создании обработчика");
+        } finally {
+            service.shutdownNow();
+            try {
+                if (!service.awaitTermination(100, TimeUnit.MICROSECONDS)) {
+                    System.exit(0);
+                }
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
