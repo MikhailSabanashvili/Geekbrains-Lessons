@@ -1,0 +1,77 @@
+2022-04-02 11:46:46 INFO  AuthServiceImpl:27 - Auth service is enable
+2022-04-02 11:46:46 INFO  Server:30 - Authentical service started
+2022-04-02 11:46:46 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 11:47:14 INFO  Server:35 - Client is connected
+2022-04-02 11:47:14 INFO  ClientHandler:122 - Process authentication is running
+2022-04-02 12:54:57 INFO  AuthServiceImpl:27 - Auth service is enable
+2022-04-02 12:54:57 INFO  Server:30 - Authentical service started
+2022-04-02 12:54:57 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 12:55:26 INFO  Server:35 - Client is connected
+2022-04-02 12:55:26 INFO  ClientHandler:123 - Process authentication is running
+2022-04-02 12:57:19 INFO  AuthServiceImpl:27 - Auth service is enable
+2022-04-02 12:57:30 INFO  Server:30 - Authentical service started
+2022-04-02 12:57:31 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:02:04 INFO  Server:35 - Client is connected
+2022-04-02 13:04:02 INFO  AuthServiceImpl:27 - Auth service is enable
+2022-04-02 13:04:03 INFO  Server:30 - Authentical service started
+2022-04-02 13:04:04 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:07:23 INFO  Server:35 - Client is connected
+2022-04-02 13:07:23 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:12:41 ERROR Server:39 - Server error
+2022-04-02 13:13:30 ERROR Server:39 - Server error
+2022-04-02 13:13:50 ERROR Server:39 - Server error
+2022-04-02 13:14:20 ERROR Server:39 - Server error
+2022-04-02 13:15:01 ERROR Server:39 - Server error
+2022-04-02 13:16:09 INFO  AuthServiceImpl:27 - Auth service is enable
+2022-04-02 13:16:13 INFO  Server:30 - Authentical service started
+2022-04-02 13:16:15 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:16:43 INFO  Server:35 - Client is connected
+2022-04-02 13:18:26 INFO  ClientHandler:123 - Process authentication is running
+2022-04-02 13:20:15 INFO  AuthServiceImpl:27 - Auth service is enable
+2022-04-02 13:20:15 INFO  Server:30 - Authentical service started
+2022-04-02 13:20:15 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:20:29 INFO  Server:35 - Client is connected
+2022-04-02 13:20:29 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:20:29 INFO  ClientHandler:123 - Process authentication is running
+2022-04-02 13:20:29 INFO  AuthServiceImpl:36 - Get nickname: mikhael
+2022-04-02 13:20:29 INFO  ClientHandler:132 - Joined the chat: mikhael
+2022-04-02 13:20:29 INFO  ClientHandler:166 - Send message: /clients 
+2022-04-02 13:20:29 INFO  ClientHandler:135 - Process authentication is finished
+2022-04-02 13:20:34 INFO  ClientHandler:154 - Message from mikhael : /exit
+2022-04-02 13:20:34 INFO  ClientHandler:181 - All connections are closed
+2022-04-02 13:22:32 INFO  AuthServiceImpl:27 - Auth service is enable
+2022-04-02 13:22:32 INFO  Server:30 - Authentical service started
+2022-04-02 13:22:32 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:22:47 INFO  Server:35 - Client is connected
+2022-04-02 13:22:47 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:22:47 INFO  ClientHandler:124 - Process authentication is running
+2022-04-02 13:22:47 INFO  AuthServiceImpl:36 - Get nickname: mikhael
+2022-04-02 13:22:47 INFO  ClientHandler:133 - Joined the chat: mikhael
+2022-04-02 13:22:47 INFO  ClientHandler:167 - Send message: /clients 
+2022-04-02 13:22:47 INFO  ClientHandler:136 - Process authentication is finished
+2022-04-02 13:23:08 INFO  Server:35 - Client is connected
+2022-04-02 13:23:08 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:23:08 INFO  ClientHandler:124 - Process authentication is running
+2022-04-02 13:23:08 INFO  AuthServiceImpl:36 - Get nickname: andrey111
+2022-04-02 13:23:08 INFO  ClientHandler:167 - Send message: andrey111 зашел в чат
+2022-04-02 13:23:08 INFO  ClientHandler:133 - Joined the chat: andrey111
+2022-04-02 13:23:08 INFO  ClientHandler:167 - Send message: /clients mikhael
+
+2022-04-02 13:23:08 INFO  ClientHandler:136 - Process authentication is finished
+2022-04-02 13:23:12 INFO  ClientHandler:155 - Message from andrey111 : ляяя
+2022-04-02 13:23:12 INFO  ClientHandler:167 - Send message: andrey111: ляяя
+2022-04-02 13:23:12 INFO  ClientHandler:167 - Send message: andrey111: ляяя
+2022-04-02 13:23:15 INFO  ClientHandler:155 - Message from andrey111 : /exit
+2022-04-02 13:23:15 INFO  ClientHandler:167 - Send message: /exit andrey111
+2022-04-02 13:23:15 INFO  ClientHandler:190 - All connections are closed
+2022-04-02 13:23:19 INFO  ClientHandler:155 - Message from mikhael : /exit
+2022-04-02 13:23:19 INFO  ClientHandler:190 - All connections are closed
+2022-04-02 13:24:20 INFO  Server:35 - Client is connected
+2022-04-02 13:24:20 INFO  Server:33 - Server is waiting for client to connect
+2022-04-02 13:24:20 INFO  ClientHandler:124 - Process authentication is running
+2022-04-02 13:24:20 INFO  AuthServiceImpl:36 - Get nickname: mikhael
+2022-04-02 13:24:20 INFO  ClientHandler:133 - Joined the chat: mikhael
+2022-04-02 13:24:20 INFO  ClientHandler:167 - Send message: /clients 
+2022-04-02 13:24:20 INFO  ClientHandler:136 - Process authentication is finished
+2022-04-02 13:24:21 INFO  ClientHandler:155 - Message from mikhael : /exit
+2022-04-02 13:24:21 INFO  ClientHandler:190 - All connections are closed
