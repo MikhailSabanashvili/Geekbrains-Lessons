@@ -3,6 +3,9 @@ package com.geekbrains.server;
 import com.geekbrains.CommonConstants;
 import com.geekbrains.server.authorization.AuthService;
 import com.geekbrains.server.authorization.AuthServiceImpl;
+import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -13,6 +16,10 @@ import java.util.List;
 
 public class Server {
     private final AuthService authService;
+    private final static Logger logger = LoggerFactory.getLogger(Server.class);
+    static {
+        PropertyConfigurator.configure("log4j.properties");
+    }
 
     private List<ClientHandler> connectedUsers;
 
@@ -20,15 +27,16 @@ public class Server {
         authService = new AuthServiceImpl();
         try (ServerSocket server = new ServerSocket(CommonConstants.SERVER_PORT)) {
             authService.start();
+            logger.info("Authentical service started");
             connectedUsers = new ArrayList<>();
             while (true) {
-                System.out.println("Сервер ожидает подключения");
+                logger.info("Server is waiting for client to connect");
                 Socket socket = server.accept();
-                System.out.println("Клиент подключился");
+                logger.info("Client is connected");
                 new ClientHandler(this, socket);
             }
         } catch (IOException exception) {
-            System.out.println("Ошибка в работе сервера");
+            logger.error("Server error: {}", exception.getMessage());
             exception.printStackTrace();
         } finally {
             if (authService != null) {
