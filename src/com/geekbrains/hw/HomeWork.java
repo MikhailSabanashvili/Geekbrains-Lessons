@@ -1,81 +1,36 @@
 package com.geekbrains.hw;
 
+import java.util.Arrays;
+
 public class HomeWork {
-    private static volatile char letter = 'C';
-    private static Object monitor1 = new Object();
-    public static void printA() throws InterruptedException {
-        while (true) {
-            synchronized (monitor1) {
-                while (letter != 'C')
-                    monitor1.wait();
-                letter = 'A';
-                System.out.print(letter);
-                monitor1.notifyAll();
+    static int[] getArr(int[] arr) {
+        if(Arrays.stream(arr).noneMatch(x -> x == 4))
+            throw new RuntimeException();
+
+        int[] arrCopy = null;
+        for (int i = arr.length - 1, count = 0; i > 0; i--, count++) {
+            if(arr[i] == 4) {
+                arrCopy = new int[count];
+                for (int j = i + 1, z = 0; j < arr.length; j++, z++) {
+                    arrCopy[z] = arr[j];
+                }
+                break;
             }
         }
+
+        return arrCopy;
     }
 
-    public static void printB() throws InterruptedException {
-        while (true) {
-            synchronized (monitor1) {
-                while (letter != 'A')
-                    monitor1.wait();
-
-                letter = 'B';
-                System.out.print(letter);
-                monitor1.notifyAll();
-            }
-        }
-    }
-
-    public static void printC() throws InterruptedException {
-        while (true) {
-            synchronized (monitor1) {
-                while (letter != 'B')
-                    monitor1.wait();
-
-                letter = 'C';
-                System.out.print(letter);
-                monitor1.notifyAll();
-            }
-        }
+    static boolean isExist(int[] arr) {
+        if(Arrays.stream(arr).noneMatch(x -> x == 4) || Arrays.stream(arr).noneMatch(x -> x == 1))
+            return false;
+        return true;
     }
 
     public static void main(String[] args) {
-        Thread thread1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    printA();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread1.start();
+        int[] arr = {1, 2, 4, 4, 2, 3, 4, 7};
+        System.out.println(Arrays.toString(getArr(arr)));
 
-        Thread thread2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    printB();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread2.start();
-
-        Thread thread3 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    printC();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-        thread3.start();
+        System.out.println(isExist(arr));
     }
 }
